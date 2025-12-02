@@ -13,66 +13,25 @@ author_profile: true
 **The Astrophysical Journal Supplement Series (ApJS)**.  
 https://doi.org/10.3847/1538-4365/add893
 
+**Abraham-Alowonle, J.-J. A., Hamada, A., Abdelwahab, M., Kusano, K., & Mahrous, A. M.** (2025).  
+*Deep Learning-Based Prediction of High-Speed Solar Wind Streams: Spatio-Temporal Dependencies in Coronal Hole Dynamics.*  
+**Journal of Geophysical Research: Space Physics** (Accepted).
+
 ## 2024
 **Hamada, A., Jain, K., Lindsey, C., Creelman, M., & Oien, N.** (2024).  
 *Far-side Active Regions Based on Helioseismic and EUV Measurements: A New Dataset for Heliospheric Machine Learning Advancements.*  
 **The Astrophysical Journal (ApJ)**.  
 https://doi.org/10.3847/1538-4357/ad8636
 
-**Reiss, M. A., Muglach, K., Mason, E., Davies, E., Chakraborty, S., Delouille, V., … Hamada, A.** (2024).  
-*A community data set for comparing automated coronal hole detection schemes.*  
-**The Astrophysical Journal Supplement Series**, 271(1).  
-https://doi.org/10.3847/1538-4365/ad1408  
-
-## 2021
-**Reiss, M. A., Muglach, K., Möstl, C., Arge, C. N., … Hamada, A.** (2021).  
-*The observational uncertainty of coronal hole boundaries in automated detection schemes.*  
-**The Astrophysical Journal**, 913(1), 28.  
-https://doi.org/10.3847/1538-4357/abf2c8
-
----
-
-# Peer-Reviewed Journal Articles (Q2)
-
-## 2021
-**Hamada, A., Asikainen, T., & Mursula, K.** (2021).  
-*A uniform series of coronal holes in 1973–2018.*  
-**Solar Physics**, 296, 40.
-
----
-
-# Peer-Reviewed Journal Articles (Q3)
-
-## 2024
 **Kyeremateng, K., Hamada, A., Elsaid, A., & Mahrous, A.** (2024).  
 *Deep learning-based prediction of CME-driven shock standoff distances in metric type II radio emissions.*  
 **Astrophysics and Space Science**, 369.  
 https://doi.org/10.1007/s10509-024-04319-1
 
----
-
-# Under Review / In Preparation
-
-## 2025
-**Hamada, A., Jain, K., Strecker, H., Lindsey, C., & Orozco Suárez, D.** (2025).  
-*Seeing the Invisible Sun: Reconstructing Far-Side Signed Magnetograms from Helioseismology.*  
-**Nature Scientific Reports** (Submitted).
-
-**Abraham-Alowonle, J.-J. A., Hamada, A., Abdelwahab, M., Kusano, K., & Mahrous, A. M.** (2025).  
-*Deep Learning-Based Prediction of High-Speed Solar Wind Streams: Spatio-Temporal Dependencies in Coronal Hole Dynamics.*  
-**Journal of Geophysical Research: Space Physics** (Accepted).
-
-**Hamada, A., Jain, K., Strecker, H., Lindsey, C., & Orozco Suárez, D.** (2025).  
-*FASTARR Meets SO/PHI: First Solar Far-Side Butterfly Diagrams and Seismic–Magnetic Signatures of Solar Far-Side Active Regions.*  
-(In preparation for submission to **The Astrophysical Journal**).
-
-**Hamada, A.** (2025).  
-*الطقس الفضائي والشمس: التعريف، الأسباب، والتأثير – مُراجعة عربية.*  
-**Arabian Journal of Scientific Research (AJSR)** (In preparation).
-
----
-
-# Earlier Publications
+**Reiss, M. A., Muglach, K., Mason, E., Davies, E., Chakraborty, S., Delouille, V., … Hamada, A.** (2024).  
+*A community data set for comparing automated coronal hole detection schemes.*  
+**The Astrophysical Journal Supplement Series**, 271(1).  
+https://doi.org/10.3847/1538-4365/ad1408  
 
 ### 2024  
 Kyeremateng, K., Hamada, A., Elsaidd, A., & Mahrous, A. (2024).  
@@ -88,6 +47,16 @@ Abdulmajed, R., Hamada, A., Elsaid, A., Hayakawa, H., & Mahrous, A. (2024).
 Abdo, R., Hamada, A., Hayakawa, H., & Mahrous, A. (2022).  
 *Prediction of coronal hole related solar wind speed using artificial neural networks.*  
 **44th COSPAR Assembly**, 44.1344A.
+
+## 2021
+**Reiss, M. A., Muglach, K., Möstl, C., Arge, C. N., … Hamada, A.** (2021).  
+*The observational uncertainty of coronal hole boundaries in automated detection schemes.*  
+**The Astrophysical Journal**, 913(1), 28.  
+https://doi.org/10.3847/1538-4357/abf2c8
+
+**Hamada, A., Asikainen, T., & Mursula, K.** (2021).  
+*A uniform series of coronal holes in 1973–2018.*  
+**Solar Physics**, 296, 40.
 
 ### 2020  
 Munteanu, C., Hamada, A., & Mursula, K. (2020).  
