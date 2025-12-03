@@ -9,7 +9,7 @@ site_theme               : "default"
 title                    : "Dr. Amr Hamada"
 title_separator          : "-"
 name                     : &name "Dr. Amr Hamada"
-description              : &description "Solar physicist — helioseismology, far-side imaging, and machine learning"
+description              : &description "Solar physicist — helioseismology, far-side imaging, Space Weather, and machine learning"
 url                      : https://amr1001hamada.github.io
 baseurl                  : ""
 repository               : "Amr1001Hamada/Amr1001Hamada.github.io"
