@@ -11,7 +11,7 @@ author_profile: true
   International **SCOSTEP/PRESTO Newsletter**, Vol. 43 (2025).  
   🔗 [Full Article (PDF)](https://scostep.org/wp-content/uploads/2025/04/SCOSTEP_PRESTO_Newsletter_Vol43_high_reso.pdf)
 
-- **Public talk:** *Researchers' Night*, University of Oulu (2019).
+
 
 - **Public talk:** *Arab Union for Astronomy and Space Sciences* (2024).  
   🔗 [Watch on YouTube](https://www.youtube.com/watch?v=vwZZXggJEp8)
