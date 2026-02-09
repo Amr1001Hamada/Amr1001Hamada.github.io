@@ -467,27 +467,29 @@
   direction: ltr;
 }
 
-/* === Force vertical bilingual navigation (final fix) === */
-.greedy-nav .visible-links .masthead__menu-item a {
-  display: block !important;
+/* === Fix alignment for bilingual navigation === */
+
+.greedy-nav .visible-links li.masthead__menu-item {
+  display: table-cell;
+  vertical-align: middle;
   text-align: center;
+  padding: 0 0.6rem;
 }
 
-.greedy-nav .visible-links .masthead__menu-item a .nav-ar,
-.greedy-nav .visible-links .masthead__menu-item a .nav-en {
-  display: block !important;
-  white-space: nowrap;
-}
-
-.greedy-nav .visible-links .masthead__menu-item a .nav-ar {
-  direction: rtl;
+.greedy-nav .visible-links li.masthead__menu-item .nav-ar {
+  display: block;
+  font-size: 0.85em;
   font-weight: 600;
-  margin-bottom: 2px;
+  direction: rtl;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
-.greedy-nav .visible-links .masthead__menu-item a .nav-en {
+.greedy-nav .visible-links li.masthead__menu-item .nav-en-link {
+  display: block;
   font-size: 0.75em;
-  opacity: 0.75;
-  direction: ltr;
+  opacity: 0.8;
+  white-space: nowrap;
+  line-height: 1.1;
 }
 
