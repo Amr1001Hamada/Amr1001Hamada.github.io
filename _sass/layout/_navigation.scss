@@ -527,3 +527,21 @@
   white-space: nowrap;
   padding: 0 0.6rem;
 }
+
+
+/* Arabic label */
+.greedy-nav .visible-links .nav-ar {
+  direction: rtl;
+  text-align: center;
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* English label */
+.greedy-nav .visible-links .nav-en-link {
+  text-align: center;
+  font-size: 0.75em;
+  opacity: 0.8;
+  line-height: 1.2;
+}
