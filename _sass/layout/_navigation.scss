@@ -467,28 +467,30 @@
   direction: ltr;
 }
 
-/* === Greedy-Nav proof bilingual alignment: Arabic as overlay === */
+/* =========================================================
+   FINAL BILINGUAL NAVIGATION (CLEAN & STABLE)
+   Compatible with Greedy Nav
+   ========================================================= */
 
+/* Keep Greedy Nav behavior intact */
 .greedy-nav .visible-links li.masthead__menu-item {
-  position: relative;
+  display: table-cell;
+  vertical-align: middle;
   text-align: center;
-  padding-top: 1.05rem;     /* مساحة للسطر العربي فوق */
 }
 
-/* Arabic line: take it out of normal flow */
+/* Arabic label (top line) */
 .greedy-nav .visible-links li.masthead__menu-item .nav-ar {
-  position: absolute;
-  top: 0.05rem;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
   direction: rtl;
+  text-align: center;
   white-space: nowrap;
   font-size: 0.85em;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
-/* English line */
+/* English label (bottom line) */
 .greedy-nav .visible-links li.masthead__menu-item .nav-en-link {
   display: block;
   text-align: center;
@@ -497,36 +499,3 @@
   opacity: 0.8;
   line-height: 1.2;
 }
-
-/* === Fix horizontal alignment by equalizing nav item widths === */
-
-/* === Equal width ONLY on large screens === */
-@media (min-width: 1024px) {
-  .greedy-nav .visible-links li.masthead__menu-item {
-    width: 9.5rem;
-    text-align: center;
-    vertical-align: middle;
-  }
-}
-
-
-/* Arabic line */
-.greedy-nav .visible-links .nav-ar {
-  display: block;
-  direction: rtl;
-  text-align: center;
-  white-space: nowrap;
-  font-size: 0.85em;
-  font-weight: 600;
-}
-
-/* English line */
-.greedy-nav .visible-links .nav-en-link {
-  display: block;
-  text-align: center;
-  white-space: nowrap;
-  font-size: 0.75em;
-  opacity: 0.8;
-}
-
-
