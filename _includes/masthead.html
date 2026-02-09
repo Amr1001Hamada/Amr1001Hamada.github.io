@@ -24,9 +24,12 @@
               {% if link.ar %}
                 <div class="nav-ar">{{ link.ar }}</div>
               {% endif %}
-              <a href="{{ domain }}{{ link.url }}" class="nav-en-link">
+              <a href="{{ domain }}{{ link.url }}"
+                 class="nav-en-link"
+                 aria-label="{% if link.ar %}{{ link.ar }} – {% endif %}{{ link.title }}">
                 {{ link.title }}
               </a>
+
             </li>
           {% endfor %}
 
