@@ -499,3 +499,31 @@
   opacity: 0.8;
   line-height: 1.2;
 }
+
+/* =========================================================
+   FORCE ALL NAV ITEMS TO STAY IN HEADER
+   Disable Greedy Nav collapsing behavior
+   ========================================================= */
+
+/* Stop Greedy Nav from hiding items */
+.greedy-nav .hidden-links {
+  display: none !important;
+}
+
+/* Force visible links to behave as a row */
+.greedy-nav .visible-links {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+/* Force each item to stay visible */
+.greedy-nav .visible-links li.masthead__menu-item {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 0 0.6rem;
+}
