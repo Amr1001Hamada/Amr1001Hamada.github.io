@@ -467,35 +467,31 @@
   direction: ltr;
 }
 
-/* === REAL fix: center bilingual nav as one block === */
+/* === FINAL & ONLY REAL FIX === */
 
+/* Kill table-cell behavior from Greedy Nav */
 .greedy-nav .visible-links li.masthead__menu-item {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0 0.8rem;
-}
-
-/* Treat the li content as a vertical flex block */
-.greedy-nav .visible-links li.masthead__menu-item {
-  text-align: center;
-}
-
-.greedy-nav .visible-links li.masthead__menu-item > * {
-  display: block;
-  text-align: center;
 }
 
 /* Arabic line */
 .greedy-nav .visible-links .nav-ar {
+  display: block;
   direction: rtl;
+  text-align: center;
   font-size: 0.85em;
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 2px;
 }
 
 /* English line */
 .greedy-nav .visible-links .nav-en-link {
+  display: block;
+  text-align: center;
   font-size: 0.75em;
   opacity: 0.8;
   line-height: 1.2;
