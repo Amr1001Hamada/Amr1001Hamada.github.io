@@ -19,8 +19,10 @@ main:
     
   #- title: "Outreach"
    # url: /outreach/
-   - title: "التوعية العلمية<br/><span class='nav-en'>Science Outreach</span>"
-  url: /outreach/
+  - title: "Outreach"
+    url: /outreach/
+    ar: "التوعية العلمية"
+
 
 
   - title: "Talks"
