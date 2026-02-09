@@ -8,28 +8,31 @@
 #      Markdown formatted page while the second is generated using JSON.
 
 main:
+main:
   - title: "Publications"
+    ar: "المنشورات العلمية"
     url: /publications/
-     
+
   - title: "Datasets"
+    ar: "مجموعات البيانات"
     url: /datasets/
 
   - title: "Software / Models"
+    ar: "البرمجيات والنماذج"
     url: /software/
-    
-  #- title: "Outreach"
-   # url: /outreach/
+
   - title: "Outreach"
-    url: /outreach/
     ar: "التوعية العلمية"
-
-
+    url: /outreach/
 
   - title: "Talks"
-    url: /talks/    
+    ar: "المحاضرات والعروض"
+    url: /talks/
 
   - title: "Teaching"
-    url: /teaching/    
+    ar: "التدريس"
+    url: /teaching/
+
     
   #- title: "Portfolio"
    # url: /portfolio/
