@@ -442,3 +442,12 @@
     }
   }
 }
+
+/* Bilingual navigation (Arabic / English) */
+.nav-en {
+  display: block;
+  font-size: 0.75em;
+  opacity: 0.75;
+  direction: ltr;
+  line-height: 1.2;
+}
