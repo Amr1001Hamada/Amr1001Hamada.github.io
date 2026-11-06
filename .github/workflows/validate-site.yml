@@ -80,25 +80,23 @@ jobs:
         if: success()
         shell: bash
         run: |
-          # Generated pages use production-absolute URLs. Rewrite them in the disposable\n          # preview build so Chrome loads the BRANCH stylesheet, fonts and assets.\n          find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#https://amr1001hamada.github.io/#/#g'\n          grep -q 'href="/assets/css/main.css"' _site/index.html\n          python3 -m http.server 8765 --directory _site --bind 127.0.0.1 >/tmp/site-http.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
-          for attempt in $(seq 1 30); do
-            if curl -fsS http://127.0.0.1:8765/ >/dev/null; then break; fi
-            sleep 1
-          done
-          curl -fsS http://127.0.0.1:8765/ >/dev/null
-          curl -fsS http://127.0.0.1:8765/assets/css/main.css >/dev/null
+          # Switch links to local asset paths ONLY inside this disposable preview.
+          find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#https://amr1001hamada.github.io/#./#g'
+          sed -i 's#src="/images/#src="./images/#g' _site/index.html
+          grep -q 'href="./assets/css/main.css"' _site/index.html
+          test -s _site/assets/css/main.css
           if command -v google-chrome >/dev/null 2>&1; then
-            timeout 60s google-chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,3400 http://127.0.0.1:8765/ >/tmp/chrome-desktop.log 2>&1
-            timeout 60s google-chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,5300 --force-device-scale-factor=1 http://127.0.0.1:8765/ >/tmp/chrome-mobile.log 2>&1
+            FILE_URL="file://$(pwd)/_site/index.html"
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,3400 "$FILE_URL" >/tmp/chrome-desktop.log 2>&1 || { cat /tmp/chrome-desktop.log | tail -20; exit 1; }
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,5300 --force-device-scale-factor=1 "$FILE_URL" >/tmp/chrome-mobile.log 2>&1 || { cat /tmp/chrome-mobile.log | tail -20; exit 1; }
             test -s /tmp/academic-desktop.png
             test -s /tmp/academic-mobile.png
             mkdir -p preview
             cp /tmp/academic-desktop.png preview/desktop.png
             cp /tmp/academic-mobile.png preview/mobile.png
           else
-            echo 'Chrome unavailable; skipping screenshots.'
+            echo 'Chrome unavailable; cannot create screenshots.'
+            exit 1
           fi
 
       - name: Save previews and built assets
