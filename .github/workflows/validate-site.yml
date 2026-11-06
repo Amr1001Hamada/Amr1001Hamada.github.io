@@ -1,9 +1,6 @@
 name: Validate Academic Website
 
 on:
-  push:
-    branches:
-      - website-refresh-nov-2026
   pull_request:
     paths:
       - '_pages/**'
@@ -83,11 +80,11 @@ jobs:
         if: success()
         shell: bash
         run: |
-          (cd _site && python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/site-http.log 2>&1 &)
+          # Generated pages use production-absolute URLs. Rewrite them in the disposable\n          # preview build so Chrome loads the BRANCH stylesheet, fonts and assets.\n          find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#https://amr1001hamada.github.io/#/#g'\n          grep -q 'href="/assets/css/main.css"' _site/index.html\n          (cd _site && python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/site-http.log 2>&1 &)
           sleep 3
           if command -v google-chrome >/dev/null 2>&1; then
-            google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,1100 http://127.0.0.1:8765/ || true
-            google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,1000 --force-device-scale-factor=1 http://127.0.0.1:8765/ || true
+            google-chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,1100 http://127.0.0.1:8765/ || true
+            google-chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,1000 --force-device-scale-factor=1 http://127.0.0.1:8765/ || true
             mkdir -p preview
             cp /tmp/academic-desktop.png preview/desktop.png 2>/dev/null || true
             cp /tmp/academic-mobile.png preview/mobile.png 2>/dev/null || true
