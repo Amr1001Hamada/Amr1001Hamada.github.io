@@ -85,12 +85,21 @@ jobs:
           sed -i 's#src="/images/#src="./images/#g' _site/index.html
           grep -q 'href="./assets/css/main.css"' _site/index.html
           test -s _site/assets/css/main.css
+          # Screenshot-only override: wait-independent capture of pages with CSS intro animations.
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('_site/index.html')
+          html = p.read_text(encoding='utf-8')
+          html = html.replace('</head>', '<style>*,*::before,*::after{animation:none!important;transition:none!important}</style></head>', 1)
+          p.write_text(html, encoding='utf-8')
+          PY
           if command -v google-chrome >/dev/null 2>&1; then
             FILE_URL="file://$(pwd)/_site/index.html"
-            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,3400 "$FILE_URL" >/tmp/chrome-desktop.log 2>&1 || { cat /tmp/chrome-desktop.log | tail -20; exit 1; }
-            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,5300 --force-device-scale-factor=1 "$FILE_URL" >/tmp/chrome-mobile.log 2>&1 || { cat /tmp/chrome-mobile.log | tail -20; exit 1; }
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,3400 --virtual-time-budget=5000 "$FILE_URL" >/tmp/chrome-desktop.log 2>&1 || { cat /tmp/chrome-desktop.log | tail -20; exit 1; }
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,2600 --force-device-scale-factor=1 --virtual-time-budget=5000 "$FILE_URL" >/tmp/chrome-mobile.log 2>&1 || { cat /tmp/chrome-mobile.log | tail -20; exit 1; }
             test -s /tmp/academic-desktop.png
             test -s /tmp/academic-mobile.png
+            test "$(stat -c%s /tmp/academic-mobile.png)" -ge 60000 || { echo 'Mobile preview appears blank'; exit 1; }
             mkdir -p preview
             cp /tmp/academic-desktop.png preview/desktop.png
             cp /tmp/academic-mobile.png preview/mobile.png
