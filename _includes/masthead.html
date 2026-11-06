@@ -9,6 +9,11 @@
 {% else %}
   {% assign ah_main_links = site.data.navigation.main %}
   {% assign ah_alt_url = '/ar' | append: page.url %}
+  {% capture ah_supported_english %}|/|/research/|/publications/|/datasets/|/software/|/teaching/|/talks/|/outreach/|/cv/|{% endcapture %}
+  {% assign ah_lookup = '|' | append: page.url | append: '|' %}
+  {% unless ah_supported_english contains ah_lookup %}
+    {% assign ah_alt_url = '/ar/' %}
+  {% endunless %}
   {% assign ah_alt_label = 'العربية' %}
   {% assign ah_mobile_summary = 'Menu' %}
   {% assign ah_mobile_label = 'Site navigation' %}
