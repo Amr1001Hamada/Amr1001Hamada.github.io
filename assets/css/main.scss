@@ -41,3 +41,12 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+
+// Research portfolio home page (scoped styles)
+@import "layout/home";
+
+// Accessible mobile menu independent of JavaScript
+@import "layout/mobile_nav";
+
+// Arabic scholarly pages and bilingual navigation
+@import "layout/arabic";

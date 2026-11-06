@@ -9,7 +9,7 @@ site_theme               : "default"
 title                    : "Dr. Amr Hamada"
 title_separator          : "-"
 name                     : &name "Dr. Amr Hamada"
-description              : &description "Solar physicist — helioseismology, far-side imaging, Space Weather, and machine learning"
+description              : &description "Dr. Amr Hamada — Associate Research Scientist at the National Solar Observatory. Solar physics, far-side magnetism, helioseismology, space weather, and scientific machine learning."
 url                      : https://amr1001hamada.github.io
 baseurl                  : ""
 repository               : "Amr1001Hamada/Amr1001Hamada.github.io"
@@ -19,7 +19,7 @@ author:
   avatar           : "profile.png"
   name             : "Dr. Amr Hamada"
   pronouns         :
-  bio              : "Solar Physicist — NSO/NISP"
+  bio              : "Associate Research Scientist · Solar Physics · NSO"
   location         : "Boulder, Colorado, USA"
   employer         : "National Solar Observatory"
   uri              :
@@ -31,7 +31,7 @@ author:
   googlescholar    : "https://scholar.google.com/citations?user=R02-FAsAAAAJ&hl=en/"
   inspire-hep      :
   impactstory      :
-  orcid            : "https://orcid.org/my-orcid?orcid=0000-0002-8900-8011/"
+  orcid            : "https://orcid.org/0000-0002-8900-8011"
   semantic         :
   ssrn             :
   pubmed           :

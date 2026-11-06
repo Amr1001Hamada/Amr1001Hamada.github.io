@@ -1,0 +1,162 @@
+name: Validate Academic Website
+
+on:
+  pull_request:
+    paths:
+      - '_pages/**'
+      - '_sass/**'
+      - 'assets/**'
+      - '_config.yml'
+      - '_data/**'
+      - '.github/workflows/validate-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout preview branch
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby and bundle dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Compile Jekyll site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --trace
+
+      - name: Validate built homepage and critical internal routes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          root = Path('_site')
+          assert (root/'index.html').exists(), 'Missing rendered homepage'
+          assert (root/'assets/css/main.css').exists(), 'Compiled CSS missing'
+          index = (root/'index.html').read_text(encoding='utf-8')
+          css = (root/'assets/css/main.css').read_text(encoding='utf-8')
+          for phrase in ('ah-hero-title', 'RESEARCH HIGHLIGHTS', 'Polarity-resolved', 'نبذة بالعربية', 'Academic CV'):
+              assert phrase in index, f'Missing homepage phrase: {phrase}'
+          assert '.ah-hero' in css and '.ah-work-grid' in css, 'Homepage Sass failed to compile'
+          for route in ('research', 'publications', 'datasets', 'software', 'teaching', 'outreach', 'cv'):
+              assert (root/route/'index.html').exists(), f'Missing route: /{route}/'
+          assert 'GitHub University' not in (root/'cv'/'index.html').read_text(encoding='utf-8'), 'Demo CV data leaked'
+          class ImageChecker(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.images = []
+              def handle_starttag(self, tag, attrs):
+                  if tag == 'img':
+                      a = dict(attrs)
+                      self.images.append(a)
+          checker = ImageChecker()
+          checker.feed(index)
+          assert len(checker.images)>=4, f'Expected featured visuals, got {len(checker.images)} images'
+          for img in checker.images:
+              assert img.get('alt', '').strip(), f'Missing image alt: {img}'
+          print(f'PASS: homepage, CSS, 7 routes, {len(checker.images)} images and alt text')
+          PY
+
+      - name: Validate Arabic routes, RTL HTML and bilingual links
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          root = Path('_site')
+          slugs = ('research','publications','datasets','software','teaching','talks','outreach','cv')
+          pages = [root/'ar'/'index.html'] + [root/'ar'/x/'index.html' for x in slugs]
+          for p in pages:
+              assert p.exists(), f'Arabic route missing: {p}'
+              html = p.read_text(encoding='utf-8')
+              assert 'lang="ar"' in html and 'dir="rtl"' in html, f'RTL document metadata missing: {p}'
+              assert 'href="https://amr1001hamada.github.io/' in html, f'No site navigation: {p}'
+              assert 'English' in html, f'Missing switch to English: {p}'
+              assert 'الأبحاث' in html, f'Missing Arabic navigation: {p}'
+          homepage=pages[0].read_text(encoding='utf-8')
+          assert 'الأثر والإسهام العلمي' in homepage and 'د. عمرو' in homepage
+          assert 'ah-ar-home' in homepage and 'المنتدى العربي' in homepage
+          css=(root/'assets/css/main.css').read_text(encoding='utf-8')
+          assert '.ah-ar-page' in css and '.ah-impact-grid' in css, 'Arabic styling not compiled'
+          class Headers(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.h2=0
+              def handle_starttag(self,tag,attrs):
+                  if tag=='h2': self.h2+=1
+          for p in pages[1:]:
+              v=Headers(); v.feed(p.read_text(encoding='utf-8'))
+              assert v.h2 >= 1, f'Arabic Markdown not rendered to headings: {p}'
+          print(f'PASS: {len(pages)} Arabic pages, RTL, bilingual navigation, Markdown, CSS')
+          PY
+
+      - name: Check scientific image responses (informational)
+        if: always()
+        shell: bash
+        run: |
+          for url in             'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-026-42917-x/MediaObjects/41598_2026_42917_Fig9_HTML.png'             'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-026-42917-x/MediaObjects/41598_2026_42917_Fig3_HTML.png'             'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-026-42917-x/MediaObjects/41598_2026_42917_Fig10_HTML.png'             'https://scx2.b-cdn.net/gfx/news/hires/2026/scientists-map-hidden.jpg'; do
+              echo "::group::Checking scientific image"
+              printf '%s\n' "$url"
+              curl -L -I -s -o /dev/null --max-time 20 -w "HTTP %{http_code} | content type %{content_type} | effective %{url_effective}\n" "$url" || true
+              echo "::endgroup::"
+          done
+
+      - name: Capture desktop and mobile previews
+        if: success()
+        shell: bash
+        run: |
+          # Switch links to local asset paths ONLY inside this disposable preview.
+          find _site -type f -name '*.html' -print0 | xargs -0 sed -i 's#https://amr1001hamada.github.io/#./#g'
+          sed -i 's#src="/images/#src="./images/#g' _site/index.html
+          grep -q 'href="./assets/css/main.css"' _site/index.html
+          test -s _site/assets/css/main.css
+          # Set branch CSS/image paths relative to the /ar/ preview document.
+          sed -i 's#href="./assets/#href="../assets/#g; s#src="./assets/#src="../assets/#g; s#href="./images/#href="../images/#g; s#src="./images/#src="../images/#g; s#src="/images/#src="../images/#g' _site/ar/index.html
+          grep -q 'href="../assets/css/main.css"' _site/ar/index.html
+          # Screenshot-only override: wait-independent capture of pages with CSS intro animations.
+          python3 - <<'PY'
+          from pathlib import Path
+          for p in (Path('_site/index.html'), Path('_site/ar/index.html')):
+              html = p.read_text(encoding='utf-8')
+              html = html.replace('</head>', '<style>*,*::before,*::after{animation:none!important;transition:none!important}</style></head>', 1)
+              p.write_text(html, encoding='utf-8')
+          PY
+          if command -v google-chrome >/dev/null 2>&1; then
+            FILE_URL="file://$(pwd)/_site/index.html"
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,3400 --virtual-time-budget=5000 "$FILE_URL" >/tmp/chrome-desktop.log 2>&1 || { cat /tmp/chrome-desktop.log | tail -20; exit 1; }
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,2600 --force-device-scale-factor=1 --virtual-time-budget=5000 "$FILE_URL" >/tmp/chrome-mobile.log 2>&1 || { cat /tmp/chrome-mobile.log | tail -20; exit 1; }
+            test -s /tmp/academic-desktop.png
+            test -s /tmp/academic-mobile.png
+            test "$(stat -c%s /tmp/academic-mobile.png)" -ge 60000 || { echo 'Mobile preview appears blank'; exit 1; }
+            mkdir -p preview
+            cp /tmp/academic-desktop.png preview/desktop.png
+            cp /tmp/academic-mobile.png preview/mobile.png
+            AR_URL="file://$(pwd)/_site/ar/index.html"
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/arabic-desktop.png --window-size=1440,3400 --virtual-time-budget=5000 "$AR_URL" >/tmp/chrome-ar-desktop.log 2>&1 || { tail -20 /tmp/chrome-ar-desktop.log; exit 1; }
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/arabic-mobile.png --window-size=430,2600 --force-device-scale-factor=1 --virtual-time-budget=5000 "$AR_URL" >/tmp/chrome-ar-mobile.log 2>&1 || { tail -20 /tmp/chrome-ar-mobile.log; exit 1; }
+            test "$(stat -c%s /tmp/arabic-desktop.png)" -ge 80000
+            test "$(stat -c%s /tmp/arabic-mobile.png)" -ge 50000
+            cp /tmp/arabic-desktop.png preview/arabic-desktop.png
+            cp /tmp/arabic-mobile.png preview/arabic-mobile.png
+          else
+            echo 'Chrome unavailable; cannot create screenshots.'
+            exit 1
+          fi
+
+      - name: Save previews and built assets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: academic-site-check
+          path: |
+            preview/*.png
+            _site/index.html
+            _site/assets/css/main.css
+          if-no-files-found: warn

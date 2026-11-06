@@ -26,4 +26,19 @@
 </style>
 
 
+
+{% comment %}Localized search and language alternates for the paired site pages.{% endcomment %}
+{% if page.lang == 'ar' %}
+  <link rel="alternate" hreflang="ar" href="{{ page.url | absolute_url }}">
+  <link rel="alternate" hreflang="en" href="{{ page.translation | default: '/' | absolute_url }}">
+{% else %}
+  {% capture ah_supported_english %}|/|/research/|/publications/|/datasets/|/software/|/teaching/|/talks/|/outreach/|/cv/|{% endcapture %}
+  {% assign ah_lookup = '|' | append: page.url | append: '|' %}
+  {% if ah_supported_english contains ah_lookup %}
+    {% assign ah_ar_url = '/ar' | append: page.url %}
+    <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url }}">
+    <link rel="alternate" hreflang="ar" href="{{ ah_ar_url | absolute_url }}">
+  {% endif %}
+{% endif %}
+
 <!-- end custom head snippets -->
