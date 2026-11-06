@@ -1,0 +1,105 @@
+name: Validate Academic Website
+
+on:
+  push:
+    branches:
+      - website-refresh-nov-2026
+  pull_request:
+    paths:
+      - '_pages/**'
+      - '_sass/**'
+      - 'assets/**'
+      - '_config.yml'
+      - '_data/**'
+      - '.github/workflows/validate-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout preview branch
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby and bundle dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Compile Jekyll site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --trace
+
+      - name: Validate built homepage and critical internal routes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          root = Path('_site')
+          assert (root/'index.html').exists(), 'Missing rendered homepage'
+          assert (root/'assets/css/main.css').exists(), 'Compiled CSS missing'
+          index = (root/'index.html').read_text(encoding='utf-8')
+          css = (root/'assets/css/main.css').read_text(encoding='utf-8')
+          for phrase in ('ah-hero-title', 'RESEARCH HIGHLIGHTS', 'Polarity-resolved', 'نبذة بالعربية', 'Academic CV'):
+              assert phrase in index, f'Missing homepage phrase: {phrase}'
+          assert '.ah-hero' in css and '.ah-work-grid' in css, 'Homepage Sass failed to compile'
+          for route in ('research', 'publications', 'datasets', 'software', 'teaching', 'outreach', 'cv'):
+              assert (root/route/'index.html').exists(), f'Missing route: /{route}/'
+          assert 'GitHub University' not in (root/'cv'/'index.html').read_text(encoding='utf-8'), 'Demo CV data leaked'
+          class ImageChecker(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.images = []
+              def handle_starttag(self, tag, attrs):
+                  if tag == 'img':
+                      a = dict(attrs)
+                      self.images.append(a)
+          checker = ImageChecker()
+          checker.feed(index)
+          assert len(checker.images)>=4, f'Expected featured visuals, got {len(checker.images)} images'
+          for img in checker.images:
+              assert img.get('alt', '').strip(), f'Missing image alt: {img}'
+          print(f'PASS: homepage, CSS, 7 routes, {len(checker.images)} images and alt text')
+          PY
+
+      - name: Check scientific image responses (informational)
+        if: always()
+        shell: bash
+        run: |
+          for url in             'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-026-42917-x/MediaObjects/41598_2026_42917_Fig9_HTML.png'             'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-026-42917-x/MediaObjects/41598_2026_42917_Fig3_HTML.png'             'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-026-42917-x/MediaObjects/41598_2026_42917_Fig10_HTML.png'             'https://scx2.b-cdn.net/gfx/news/hires/2026/scientists-map-hidden.jpg'; do
+              echo "::group::Checking scientific image"
+              printf '%s\n' "$url"
+              curl -L -I -s -o /dev/null --max-time 20 -w "HTTP %{http_code} | content type %{content_type} | effective %{url_effective}\n" "$url" || true
+              echo "::endgroup::"
+          done
+
+      - name: Capture desktop and mobile previews
+        if: success()
+        shell: bash
+        run: |
+          (cd _site && python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/site-http.log 2>&1 &)
+          sleep 3
+          if command -v google-chrome >/dev/null 2>&1; then
+            google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-desktop.png --window-size=1440,1100 http://127.0.0.1:8765/ || true
+            google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/academic-mobile.png --window-size=430,1000 --force-device-scale-factor=1 http://127.0.0.1:8765/ || true
+            mkdir -p preview
+            cp /tmp/academic-desktop.png preview/desktop.png 2>/dev/null || true
+            cp /tmp/academic-mobile.png preview/mobile.png 2>/dev/null || true
+          fi
+
+      - name: Save previews and built assets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: academic-site-check
+          path: |
+            preview/*.png
+            _site/index.html
+            _site/assets/css/main.css
+          if-no-files-found: warn
