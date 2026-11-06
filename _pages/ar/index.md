@@ -14,7 +14,7 @@ author_profile: false
       <p class="ah-eyebrow"><span class="ah-eyebrow-dot" aria-hidden="true"></span> المرصد الوطني الشمسي · بولدر، كولورادو</p>
       <p class="ah-hero-kicker">فيزياء الشمس &nbsp; / &nbsp; علم زلازل الشمس &nbsp; / &nbsp; الطقس الفضائي</p>
       <h1 id="arabic-hero-title">د. عمرو <span>حمادة</span></h1>
-      <p class="ah-role">باحث علمي مشارك <span dir="ltr">(Associate Research Scientist)</span></p>
+      <p class="ah-role">باحث علمي مشارك <span class="ah-role-en" dir="ltr" lang="en">Associate Research Scientist</span></p>
       <h2>نحو رؤية أشمل للشمس... <em>تتجاوز ما نراه من الأرض.</em></h2>
       <p class="ah-hero-intro">أدرس النشاط الشمسي على الجانب البعيد من الشمس باستخدام القياسات الزلزالية الشمسية، ورصد المركبات الفضائية، وتعلّم الآلة. وتركّز أبحاثي على استنتاج توزيع المجال المغناطيسي وأقطابه، وقياس عدم اليقين في النتائج، وتطوير بيانات علمية قابلة للاستخدام وإعادة التحليل.</p>
       <div class="ah-actions">
