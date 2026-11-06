@@ -83,7 +83,7 @@ jobs:
               assert 'الأبحاث' in html, f'Missing Arabic navigation: {p}'
           homepage=pages[0].read_text(encoding='utf-8')
           assert 'الأثر والإسهام العلمي' in homepage and 'د. عمرو' in homepage
-          assert 'ah-ar-home' in homepage and 'مخطوطة' in homepage
+          assert 'ah-ar-home' in homepage and 'المنتدى العربي' in homepage
           css=(root/'assets/css/main.css').read_text(encoding='utf-8')
           assert '.ah-ar-page' in css and '.ah-impact-grid' in css, 'Arabic styling not compiled'
           class Headers(HTMLParser):
