@@ -31,7 +31,7 @@ Far-side helioseismology; solar magnetic-field reconstruction; polarity-resolved
 ## Selected peer-reviewed research
 
 - **Hamada et al. (2026).** Polarity-resolved far-side magnetograms based on helioseismic measurements. *Scientific Reports*, **16**, 13110. [DOI](https://doi.org/10.1038/s41598-026-42917-x).
-- **Abraham-Alowonle et al. (2026).** Deep learning-based prediction of high-speed solar wind streams: Spatio-temporal dependencies in coronal hole dynamics. *Earth and Space Science*, **13**, e2025EA004523. [DOI](https://doi.org/10.1029/2025EA004523).
+- **Abraham-Alowonle et al. (2026).** Deep learning-based prediction of high-speed solar wind streams: Spatio-temporal dependencies in coronal hole dynamics. *Earth and Space Science*, **13**, e2025EA004523. Publication details are listed in my current CV.
 - **Hamada et al. (2025).** FASTARR: A machine learning approach. *The Astrophysical Journal Supplement Series*. [DOI](https://doi.org/10.3847/1538-4365/add893).
 - **Hamada et al. (2024).** Far-side active regions based on helioseismic and EUV measurements: A new dataset for heliospheric machine learning advancements. *The Astrophysical Journal*. [DOI](https://doi.org/10.3847/1538-4357/ad8636).
 
