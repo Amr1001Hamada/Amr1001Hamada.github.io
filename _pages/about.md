@@ -39,7 +39,7 @@ redirect_from:
         <img src="/images/profile.png" alt="Portrait of Dr. Amr Hamada" width="76" height="76" loading="lazy">
         <div><strong>Amr Hamada, Ph.D.</strong><span>Solar physicist · NSO</span></div>
       </div>
-      <p class="ah-image-credit">Research image: <a href="https://doi.org/10.1038/s41598-026-42917-x" target="_blank" rel="noopener noreferrer">Hamada et al., <i>Scientific Reports</i> (2026)</a>, CC BY 4.0.</p>
+      <p class="ah-image-credit">Hero image credit: NSF/NSO/GONG (panels a–d); Solar Orbiter/PHI Team, ESA & NASA (panels e–f). <a href="https://phys.org/news/2026-04-scientists-hidden-magnetism-sun-side.html" target="_blank" rel="noopener noreferrer">NSO science release (2026)</a>.</p>
     </div>
   </section>
 
