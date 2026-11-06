@@ -40,7 +40,7 @@ The expanded 2026 archive is **under preparation and validation**; its availabil
 My work includes automated coronal-hole identification, long-term coronal-hole datasets, and studies relating coronal-hole evolution to solar-wind properties and space-weather conditions.
 
 - [Hamada, Asikainen & Mursula, *Solar Physics* 296, 40 (2021)](https://scholar.google.com/citations?user=R02-FAsAAAAJ).
-- Abraham-Alowonle et al., *Earth and Space Science* 13, e2025EA004523 (2026)..
+- [Abraham-Alowonle et al., *Earth and Space Science* 13, e2025EA004523 (2026)](https://doi.org/10.1029/2025EA004523)..
 
 ## 5. Research mentoring and solar filament identification
 
