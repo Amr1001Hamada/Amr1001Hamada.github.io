@@ -1,4 +1,19 @@
 {% include base_path %}
+{% if page.lang == 'ar' %}
+  {% assign ah_main_links = site.data.navigation_ar.main %}
+  {% assign ah_alt_url = page.translation | default: '/' %}
+  {% assign ah_alt_label = 'English' %}
+  {% assign ah_mobile_summary = 'القائمة' %}
+  {% assign ah_mobile_label = 'قائمة الموقع' %}
+  {% assign ah_brand_url = '/ar/' %}
+{% else %}
+  {% assign ah_main_links = site.data.navigation.main %}
+  {% assign ah_alt_url = '/ar' | append: page.url %}
+  {% assign ah_alt_label = 'العربية' %}
+  {% assign ah_mobile_summary = 'Menu' %}
+  {% assign ah_mobile_label = 'Site navigation' %}
+  {% assign ah_brand_url = '/' %}
+{% endif %}
 
 <div class="masthead">
   <div class="masthead__inner-wrap">
@@ -7,9 +22,9 @@
         <button><span class="navicon"></span></button>
         <ul class="visible-links">
           <li class="masthead__menu-item masthead__menu-item--lg persist">
-            <a href="{{ base_path }}/">{{ site.title }}</a>
+            <a href="{{ base_path }}{{ ah_brand_url }}">{% if page.lang == 'ar' %}د. عمرو حمادة{% else %}{{ site.title }}{% endif %}</a>
           </li>
-          {% for link in site.data.navigation.main %}
+          {% for link in ah_main_links %}
             {% if link.url contains 'http' %}
               {% assign domain = '' %}
             {% else %}
@@ -19,6 +34,9 @@
               <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
             </li>
           {% endfor %}
+          <li class="masthead__menu-item ah-language-switch persist">
+            <a href="{{ base_path }}{{ ah_alt_url }}" lang="{% if page.lang == 'ar' %}en{% else %}ar{% endif %}" hreflang="{% if page.lang == 'ar' %}en{% else %}ar{% endif %}">{{ ah_alt_label }}</a>
+          </li>
           <li id="theme-toggle" class="masthead__menu-item persist tail">
             <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
           </li>
@@ -27,10 +45,11 @@
       </nav>
     </div>
     <div class="ah-mobile-header">
-      <a class="ah-mobile-brand" href="{{ base_path }}/">{{ site.title }}</a>
+      <a class="ah-mobile-brand" href="{{ base_path }}{{ ah_brand_url }}">{% if page.lang == 'ar' %}د. عمرو حمادة{% else %}{{ site.title }}{% endif %}</a>
+      <a class="ah-mobile-language" href="{{ base_path }}{{ ah_alt_url }}" lang="{% if page.lang == 'ar' %}en{% else %}ar{% endif %}">{{ ah_alt_label }}</a>
       <details class="ah-mobile-nav">
-        <summary aria-label="Toggle site navigation">Menu <span aria-hidden="true">☰</span></summary>
-        <nav aria-label="Mobile navigation">
+        <summary aria-label="{{ ah_mobile_label }}">{{ ah_mobile_summary }} <span aria-hidden="true">☰</span></summary>
+        <nav aria-label="{{ ah_mobile_label }}">
           <ul>
           {% for link in site.data.navigation.main %}
             {% if link.url contains 'http' %}
