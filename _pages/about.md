@@ -36,7 +36,7 @@ redirect_from:
         <div class="ah-hero-image-label"><span class="ah-small-square" aria-hidden="true"></span> SEEING THE UNSEEN <small>GONG &nbsp; × &nbsp; Solar Orbiter / PHI</small></div>
       </div>
       <div class="ah-profile-card">
-        <img src="/images/profile.png" alt="Portrait of Dr. Amr Hamada" width="76" height="76" loading="lazy">
+        <img src="/images/amr-hamada-portrait-2026.webp" alt="Portrait of Dr. Amr Hamada" width="76" height="76" loading="lazy">
         <div><strong>Amr Hamada, Ph.D.</strong><span>Solar physicist · NSO</span></div>
       </div>
       <p class="ah-image-credit">Hero image credit: NSF/NSO/GONG (panels a–d); Solar Orbiter/PHI Team, ESA & NASA (panels e–f). <a href="https://phys.org/news/2026-04-scientists-hidden-magnetism-sun-side.html" target="_blank" rel="noopener noreferrer">NSO science release (2026)</a>.</p>
