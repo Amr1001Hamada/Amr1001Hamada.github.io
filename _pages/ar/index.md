@@ -34,7 +34,7 @@ author_profile: false
         <div class="ah-hero-image-label"><span class="ah-small-square" aria-hidden="true"></span> رصد الجانب الذي لا نراه <small dir="ltr">GONG × Solar Orbiter/PHI</small></div>
       </div>
       <div class="ah-profile-card">
-        <img src="/images/profile.png" alt="الصورة الشخصية للدكتور عمرو حمادة" width="76" height="76" loading="lazy">
+        <img src="/images/amr-hamada-portrait-2026.webp" alt="الصورة الشخصية للدكتور عمرو حمادة" width="76" height="76" loading="lazy">
         <div><strong>د. عمرو حمادة</strong><span>فيزياء الشمس · <bdi>NSO</bdi></span></div>
       </div>
       <p class="ah-image-credit">حقوق الأشكال والبيانات: <span dir="ltr">NSF/NSO/GONG</span> وفريق <span dir="ltr">Solar Orbiter/PHI</span> لدى وكالتي الفضاء الأوروبية والأمريكية. <a href="https://phys.org/news/2026-04-scientists-hidden-magnetism-sun-side.html" target="_blank" rel="noopener noreferrer">المصدر العلمي والتعليق الأصلي</a>.</p>
