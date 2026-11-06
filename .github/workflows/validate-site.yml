@@ -65,6 +65,38 @@ jobs:
           print(f'PASS: homepage, CSS, 7 routes, {len(checker.images)} images and alt text')
           PY
 
+      - name: Validate Arabic routes, RTL HTML and bilingual links
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          root = Path('_site')
+          slugs = ('research','publications','datasets','software','teaching','talks','outreach','cv')
+          pages = [root/'ar'/'index.html'] + [root/'ar'/x/'index.html' for x in slugs]
+          for p in pages:
+              assert p.exists(), f'Arabic route missing: {p}'
+              html = p.read_text(encoding='utf-8')
+              assert 'lang="ar"' in html and 'dir="rtl"' in html, f'RTL document metadata missing: {p}'
+              assert 'href="https://amr1001hamada.github.io/' in html, f'No site navigation: {p}'
+              assert 'English' in html, f'Missing switch to English: {p}'
+              assert 'الأبحاث' in html, f'Missing Arabic navigation: {p}'
+          homepage=pages[0].read_text(encoding='utf-8')
+          assert 'الأثر والإسهام العلمي' in homepage and 'د. عمرو' in homepage
+          assert 'ah-ar-home' in homepage and 'مخطوطة' in homepage
+          css=(root/'assets/css/main.css').read_text(encoding='utf-8')
+          assert '.ah-ar-page' in css and '.ah-impact-grid' in css, 'Arabic styling not compiled'
+          class Headers(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.h2=0
+              def handle_starttag(self,tag,attrs):
+                  if tag=='h2': self.h2+=1
+          for p in pages[1:]:
+              v=Headers(); v.feed(p.read_text(encoding='utf-8'))
+              assert v.h2 >= 1, f'Arabic Markdown not rendered to headings: {p}'
+          print(f'PASS: {len(pages)} Arabic pages, RTL, bilingual navigation, Markdown, CSS')
+          PY
+
       - name: Check scientific image responses (informational)
         if: always()
         shell: bash
@@ -85,13 +117,16 @@ jobs:
           sed -i 's#src="/images/#src="./images/#g' _site/index.html
           grep -q 'href="./assets/css/main.css"' _site/index.html
           test -s _site/assets/css/main.css
+          # Set branch CSS/image paths relative to the /ar/ preview document.
+          sed -i 's#href="./assets/#href="../assets/#g; s#src="./assets/#src="../assets/#g; s#href="./images/#href="../images/#g; s#src="./images/#src="../images/#g; s#src="/images/#src="../images/#g' _site/ar/index.html
+          grep -q 'href="../assets/css/main.css"' _site/ar/index.html
           # Screenshot-only override: wait-independent capture of pages with CSS intro animations.
           python3 - <<'PY'
           from pathlib import Path
-          p = Path('_site/index.html')
-          html = p.read_text(encoding='utf-8')
-          html = html.replace('</head>', '<style>*,*::before,*::after{animation:none!important;transition:none!important}</style></head>', 1)
-          p.write_text(html, encoding='utf-8')
+          for p in (Path('_site/index.html'), Path('_site/ar/index.html')):
+              html = p.read_text(encoding='utf-8')
+              html = html.replace('</head>', '<style>*,*::before,*::after{animation:none!important;transition:none!important}</style></head>', 1)
+              p.write_text(html, encoding='utf-8')
           PY
           if command -v google-chrome >/dev/null 2>&1; then
             FILE_URL="file://$(pwd)/_site/index.html"
@@ -103,6 +138,13 @@ jobs:
             mkdir -p preview
             cp /tmp/academic-desktop.png preview/desktop.png
             cp /tmp/academic-mobile.png preview/mobile.png
+            AR_URL="file://$(pwd)/_site/ar/index.html"
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/arabic-desktop.png --window-size=1440,3400 --virtual-time-budget=5000 "$AR_URL" >/tmp/chrome-ar-desktop.log 2>&1 || { tail -20 /tmp/chrome-ar-desktop.log; exit 1; }
+            timeout 70s google-chrome --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --screenshot=/tmp/arabic-mobile.png --window-size=430,2600 --force-device-scale-factor=1 --virtual-time-budget=5000 "$AR_URL" >/tmp/chrome-ar-mobile.log 2>&1 || { tail -20 /tmp/chrome-ar-mobile.log; exit 1; }
+            test "$(stat -c%s /tmp/arabic-desktop.png)" -ge 80000
+            test "$(stat -c%s /tmp/arabic-mobile.png)" -ge 50000
+            cp /tmp/arabic-desktop.png preview/arabic-desktop.png
+            cp /tmp/arabic-mobile.png preview/arabic-mobile.png
           else
             echo 'Chrome unavailable; cannot create screenshots.'
             exit 1
