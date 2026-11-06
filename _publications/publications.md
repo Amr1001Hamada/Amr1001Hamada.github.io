@@ -15,7 +15,8 @@ https://doi.org/10.1038/s41598-026-42917-x
 
 **Abraham-Alowonle, J.-J., Hamada, A., Abdelwahab, M., Kusano, K., & Mahrous, A.** (2026).  
 *Deep learning-based prediction of high-speed solar wind streams: Spatio-temporal dependencies in coronal hole dynamics.*  
-**Earth and Space Science, 13**, e2025EA004523.
+**Earth and Space Science, 13**, e2025EA004523.  
+https://doi.org/10.1029/2025EA004523
 
 
 
