@@ -5,17 +5,25 @@ permalink: /publications/
 author_profile: true
 ---
 
-# Peer-Reviewed Journal Articles (Q1)
+# Peer-Reviewed Journal Articles
+
+## 2026
+**Hamada, A., Jain, K., Strecker, H., Lindsey, C., & Orozco Suárez, D.** (2026).  
+*Polarity-resolved far-side magnetograms based on helioseismic measurements.*  
+**Scientific Reports, 16**, 13110.  
+https://doi.org/10.1038/s41598-026-42917-x
+
+**Abraham-Alowonle, J.-J., Hamada, A., Abdelwahab, M., Kusano, K., & Mahrous, A.** (2026).  
+*Deep learning-based prediction of high-speed solar wind streams: Spatio-temporal dependencies in coronal hole dynamics.*  
+**Earth and Space Science, 13**, e2025EA004523.
+
+
 
 ## 2025
 **Hamada, A., Creelman, M., Jain, K., & Lindsey, C.** (2025).  
 *FArSide Trained Active Region Recognition (FASTARR): A Machine Learning Approach.*  
 **The Astrophysical Journal Supplement Series (ApJS)**.  
 https://doi.org/10.3847/1538-4365/add893
-
-**Abraham-Alowonle, J.-J. A., Hamada, A., Abdelwahab, M., Kusano, K., & Mahrous, A. M.** (2025).  
-*Deep Learning-Based Prediction of High-Speed Solar Wind Streams: Spatio-Temporal Dependencies in Coronal Hole Dynamics.*  
-**Journal of Geophysical Research: Space Physics** (Accepted).
 
 ## 2024
 **Hamada, A., Jain, K., Lindsey, C., Creelman, M., & Oien, N.** (2024).  
