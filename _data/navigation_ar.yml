@@ -1,0 +1,20 @@
+# Arabic pages mirror the main English academic sections.
+main:
+  - title: "الرئيسية"
+    url: /ar/
+  - title: "الأبحاث"
+    url: /ar/research/
+  - title: "المنشورات"
+    url: /ar/publications/
+  - title: "البيانات"
+    url: /ar/datasets/
+  - title: "البرمجيات"
+    url: /ar/software/
+  - title: "التدريس"
+    url: /ar/teaching/
+  - title: "المحاضرات"
+    url: /ar/talks/
+  - title: "التواصل العلمي"
+    url: /ar/outreach/
+  - title: "السيرة الأكاديمية"
+    url: /ar/cv/
