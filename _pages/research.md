@@ -5,51 +5,38 @@ layout: single
 author_profile: true
 ---
 
-My research combines **far-side helioseismology, solar magnetic-field reconstruction, automated feature detection, and uncertainty-aware data products**. I work with GONG, Solar Orbiter/PHI, SDO/AIA, SOHO/EIT, and related heliophysics observations.
+My research focuses on solar activity observed through helioseismology, spacecraft imaging, and magnetic measurements. A recurring question is what can be learned about active regions on the far side of the Sun, where direct observations from Earth are unavailable.
 
-## 1. Far-side solar magnetism and polarity inference
+## Magnetic fields on the Sun's far side
 
-**Status: Published research, with ongoing methodological extensions.**
+Helioseismic phase shifts provide information about the presence and approximate structure of far-side active regions. I work on methods to estimate their magnetic-field strengths and infer the dominant polarity pattern, using empirical relationships and assumptions about active-region organization.
 
-I developed a framework for inferring magnetic-field intensity and the dominant bipolar configuration of solar far-side active regions from helioseismic phase-shift maps. The method combines empirical phase–magnetic calibration with information about active-region structure and Hale's polarity rule, and it is evaluated against Solar Orbiter/PHI observations.
+In a 2026 study, we compared the inferred maps with line-of-sight observations from **Solar Orbiter/PHI**. An important limitation is that the helioseismic signal does not measure magnetic polarity directly; the reliability of the reconstruction depends on the geometry and magnetic complexity of the region.
 
-- **Publication:** [Hamada et al., *Scientific Reports* 16, 13110 (2026)](https://doi.org/10.1038/s41598-026-42917-x).
-- **Current direction:** Quantifying reconstruction uncertainties and improving the treatment of evolving or geometrically complex regions.
+[Hamada et al., *Scientific Reports* 16, 13110 (2026)](https://doi.org/10.1038/s41598-026-42917-x).
 
-## 2. FASTARR and active-region recognition
+## Automated active-region detection: FASTARR
 
-**Status: Published software methodology and associated datasets.**
+I developed **FASTARR** (FArSide Trained Active Region Recognition), a deep-learning method for detecting candidate far-side active regions in helioseismic phase-shift maps. It produces masks that can be used to track detections and compare them with other observations.
 
-**FASTARR** (FArSide Trained Active Region Recognition) is my machine-learning workflow for identifying candidate solar far-side active regions in helioseismic maps. It supports automated region detection and subsequent quantitative analysis.
+[Paper: *The Astrophysical Journal Supplement Series* (2025)](https://doi.org/10.3847/1538-4365/add893) · [Research dataset](https://doi.org/10.7910/DVN/HSRJM4).
 
-- **Publication:** [Hamada et al., *The Astrophysical Journal Supplement Series* (2025)](https://doi.org/10.3847/1538-4365/add893).
-- **Data:** [FASTARR research dataset](https://doi.org/10.7910/DVN/HSRJM4).
+## EUV synoptic maps and coronal holes
 
-## 3. EUV/UV synoptic maps and observational uncertainty
+Earlier work includes homogeneous synoptic EUV datasets from **SOHO/EIT** and **SDO/AIA**, automated coronal-hole identification, and research on the relationship between coronal holes and high-speed solar wind streams.
 
-**Status: Established dataset research; expanded archive in preparation.**
+I am developing an expanded **SDO/AIA EUV/UV archive** for Carrington rotations 2097–2312, together with uncertainty products. The expanded archive is still being prepared and validated, and is not presented as a fully released dataset.
 
-I develop homogeneous, analysis-ready solar synoptic maps and workflows for quality assessment and uncertainty characterization. Current work extends **SDO/AIA EUV and UV** products across Carrington rotations **2097–2312**, including CAR/CEA representations and corrected uncertainty components.
+[Published datasets](/datasets/) · [Software and models](/software/).
 
-The expanded 2026 archive is **under preparation and validation**; its availability will be announced after release. Earlier datasets and publications are described on the [Datasets page](/datasets/).
+## Mentoring and current projects
 
-## 4. Coronal holes and high-speed solar-wind streams
+I mentor students in solar image processing and computational methods. In 2026, I supervised a REU project by **Peter Wu** on automated filament identification in **GONG Hα** maps. The approach began with MATLAB analysis and was developed further in Python with the student.
 
-**Status: Peer-reviewed research and student collaborations.**
+Current work includes uncertainty quantification in far-side magnetograms and comparisons between helioseismic inference and magnetic observations.
 
-My work includes automated coronal-hole identification, long-term coronal-hole datasets, and studies relating coronal-hole evolution to solar-wind properties and space-weather conditions.
-
-- [Hamada, Asikainen & Mursula, *Solar Physics* 296, 40 (2021)](https://scholar.google.com/citations?user=R02-FAsAAAAJ).
-- [Abraham-Alowonle et al., *Earth and Space Science* 13, e2025EA004523 (2026)](https://doi.org/10.1029/2025EA004523)..
-
-## 5. Research mentoring and solar filament identification
-
-**Status: Ongoing research and supervision.**
-
-I mentor undergraduate and graduate researchers in solar image processing and machine-learning applications. In a 2026 REU project on solar filaments in GONG Hα Carrington maps, I developed the original MATLAB analysis approach and supervised its implementation in Python by student researcher Peter Wu.
-
-See [Teaching and supervision](/teaching/) for a broader overview.
+[Teaching and supervision](/teaching/) · [Publications](/publications/).
 
 ---
 
-**Research links:** [Publications](/publications/) · [Datasets](/datasets/) · [Software & Models](/software/) · [Contact](mailto:ahamada@nso.edu)
+For research collaborations, contact [ahamada@nso.edu](mailto:ahamada@nso.edu).
