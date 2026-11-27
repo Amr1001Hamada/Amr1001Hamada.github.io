@@ -43,9 +43,9 @@ jobs:
           assert (root/'assets/css/main.css').exists(), 'Compiled CSS missing'
           index = (root/'index.html').read_text(encoding='utf-8')
           css = (root/'assets/css/main.css').read_text(encoding='utf-8')
-          for phrase in ('ah-hero-title', 'RESEARCH HIGHLIGHTS', 'Polarity-resolved', 'نبذة بالعربية', 'Academic CV'):
+          for phrase in ('research-home--en', 'Selected research', 'Polarity-resolved', 'Contact'):
               assert phrase in index, f'Missing homepage phrase: {phrase}'
-          assert '.ah-hero' in css and '.ah-work-grid' in css, 'Homepage Sass failed to compile'
+          assert '.research-home' in css and '.research-feature' in css, 'Editorial Sass failed to compile'
           for route in ('research', 'publications', 'datasets', 'software', 'teaching', 'outreach', 'cv'):
               assert (root/route/'index.html').exists(), f'Missing route: /{route}/'
           assert 'GitHub University' not in (root/'cv'/'index.html').read_text(encoding='utf-8'), 'Demo CV data leaked'
@@ -59,7 +59,7 @@ jobs:
                       self.images.append(a)
           checker = ImageChecker()
           checker.feed(index)
-          assert len(checker.images)>=4, f'Expected featured visuals, got {len(checker.images)} images'
+          assert len(checker.images)>=2, f'Expected portrait and research figure, got {len(checker.images)} images'
           for img in checker.images:
               assert img.get('alt', '').strip(), f'Missing image alt: {img}'
           print(f'PASS: homepage, CSS, 7 routes, {len(checker.images)} images and alt text')
@@ -82,10 +82,10 @@ jobs:
               assert 'English' in html, f'Missing switch to English: {p}'
               assert 'الأبحاث' in html, f'Missing Arabic navigation: {p}'
           homepage=pages[0].read_text(encoding='utf-8')
-          assert 'الأثر والإسهام العلمي' in homepage and 'د. عمرو' in homepage
-          assert 'ah-ar-home' in homepage and 'المنتدى العربي' in homepage
+          assert 'من أبحاثي' in homepage and 'عمرو حمادة' in homepage
+          assert 'research-home--ar' in homepage and 'المنتدى العربي' in homepage
           css=(root/'assets/css/main.css').read_text(encoding='utf-8')
-          assert '.ah-ar-page' in css and '.ah-impact-grid' in css, 'Arabic styling not compiled'
+          assert '.ah-ar-inside' in css and '.research-home--ar' in css, 'Arabic styling not compiled'
           class Headers(HTMLParser):
               def __init__(self):
                   super().__init__(); self.h2=0
