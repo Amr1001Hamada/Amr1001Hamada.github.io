@@ -66,7 +66,9 @@
 .research-home--ar .research-feature p{line-height:2;}
 .research-home--ar .research-mast{grid-template-columns:minmax(0,1fr) 235px;}
 .research-home--ar .research-bibliography li{grid-template-columns:58px 1fr;}
-.research-home--ar .research-bibliography [lang=en]{display:inline-block;text-align:left;direction:ltr;unicode-bidi:isolate;}
+.research-home--ar .research-bibliography li > div{direction:ltr;text-align:left;unicode-bidi:isolate;}
+.research-home--ar .research-bibliography [lang=en]{display:inline;direction:ltr;unicode-bidi:isolate;}
+.research-home--ar .research-bibliography li > div > a{white-space:nowrap;}
 /* Calm, text-first Arabic inner pages, sharing the editorial style. */
 .site-ar .ah-ar-inside{max-width:840px;margin:0 auto;padding:1.5rem clamp(1rem,2.8vw,2rem) 3rem;font-size:1rem;color:#263b43;}
 .site-ar .ah-ar-inside .ah-ar-page-header{padding:0 0 1.7rem;border:0;border-bottom:1px solid #dae1e1;border-radius:0;background:none;margin-bottom:2rem;}
