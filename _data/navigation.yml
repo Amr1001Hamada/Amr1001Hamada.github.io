@@ -1,4 +1,4 @@
-# Primary site navigation. Keep the most important academic destinations visible.
+# Primary academic navigation.
 main:
   - title: "Research"
     url: /research/
@@ -6,12 +6,8 @@ main:
     url: /publications/
   - title: "Datasets"
     url: /datasets/
-  - title: "Software"
-    url: /software/
   - title: "Teaching"
     url: /teaching/
-  - title: "Talks"
-    url: /talks/
   - title: "Outreach"
     url: /outreach/
   - title: "CV"
